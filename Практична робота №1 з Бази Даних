@@ -1,53 +1,6 @@
-public class Student {
-    private String lastName;
-    private String firstName;
-    private int grade;
-    private int classroom;
-    private int bus;
-    private String teacherLastName;
-    private String teacherFirstName;
-
-    public Student(String lastName, String firstName, int grade, int classroom, int bus, String teacherLastName, String teacherFirstName) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.grade = grade;
-        this.classroom = classroom;
-        this.bus = bus;
-        this.teacherLastName = teacherLastName;
-        this.teacherFirstName = teacherFirstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public int getBus() {
-        return bus;
-    }
-
-    public int getClassroom() {
-        return classroom;
-    }
-
-    public String getTeacherFullName() {
-        return teacherFirstName + " " + teacherLastName;
-    }
-
-    public int getGrade() {
-        return grade;
-    }
-
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
-
-    @Override
-    public String toString() {
-        return lastName + ", " + firstName + " - Grade: " + (grade == 0 ? "Kindergarten" : grade) + ", Classroom: " + classroom + ", Bus: " + bus + ", Teacher: " + teacherFirstName + " " + teacherLastName;
-    }
-}
-
 import java.io.*;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.*;
 
 public class SchoolSearch {
@@ -111,7 +64,7 @@ public class SchoolSearch {
         try (BufferedReader br = new BufferedReader(new FileReader("students.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] studentData = line.split(",\\s*"); // Регулярний вираз для пробілів після коми
+                String[] studentData = line.split(",\\s*");
                 for (int i = 0; i < studentData.length; i++) {
                     studentData[i] = studentData[i].trim();
                 }
@@ -124,6 +77,8 @@ public class SchoolSearch {
     }
 
     private static void searchStudentByLastName(String lastName) {
+        LocalTime startTime = LocalTime.now(); // Початок пошуку
+
         boolean found = false;
         for (String[] student : students) {
             if (student[0].equalsIgnoreCase(lastName)) {
@@ -134,9 +89,15 @@ public class SchoolSearch {
         if (!found) {
             System.out.println("Учень з прізвищем " + lastName + " не знайдений.");
         }
+
+        LocalTime endTime = LocalTime.now(); // Кінець пошуку
+        Duration duration = Duration.between(startTime, endTime); // Обчислення тривалості
+        System.out.println("Час виконання пошуку: " + duration.toMillis() + " мілісекунд");
     }
 
     private static void searchStudentBusByLastName(String lastName) {
+        LocalTime startTime = LocalTime.now(); // Початок пошуку
+
         boolean found = false;
         for (String[] student : students) {
             if (student[0].equalsIgnoreCase(lastName)) {
@@ -147,9 +108,15 @@ public class SchoolSearch {
         if (!found) {
             System.out.println("Учень з прізвищем " + lastName + " не знайдений.");
         }
+
+        LocalTime endTime = LocalTime.now(); // Кінець пошуку
+        Duration duration = Duration.between(startTime, endTime); // Обчислення тривалості
+        System.out.println("Час виконання пошуку: " + duration.toMillis() + " мілісекунд");
     }
 
     private static void searchStudentsByTeacher(String teacherLastName) {
+        LocalTime startTime = LocalTime.now(); // Початок пошуку
+
         boolean found = false;
         for (String[] student : students) {
             if (student[5].equalsIgnoreCase(teacherLastName)) {
@@ -160,9 +127,15 @@ public class SchoolSearch {
         if (!found) {
             System.out.println("Учні з викладачем з прізвищем " + teacherLastName + " не знайдені.");
         }
+
+        LocalTime endTime = LocalTime.now(); // Кінець пошуку
+        Duration duration = Duration.between(startTime, endTime); // Обчислення тривалості
+        System.out.println("Час виконання пошуку: " + duration.toMillis() + " мілісекунд");
     }
 
     private static void searchStudentsByBus(int busNumber) {
+        LocalTime startTime = LocalTime.now(); // Початок пошуку
+
         boolean found = false;
         for (String[] student : students) {
             if (Integer.parseInt(student[4]) == busNumber) {
@@ -173,9 +146,15 @@ public class SchoolSearch {
         if (!found) {
             System.out.println("Учні на автобусному маршруті " + busNumber + " не знайдені.");
         }
+
+        LocalTime endTime = LocalTime.now(); // Кінець пошуку
+        Duration duration = Duration.between(startTime, endTime); // Обчислення тривалості
+        System.out.println("Час виконання пошуку: " + duration.toMillis() + " мілісекунд");
     }
 
     private static void searchStudentsByClass(int classNumber) {
+        LocalTime startTime = LocalTime.now(); // Початок пошуку
+
         boolean found = false;
         for (String[] student : students) {
             if (Integer.parseInt(student[2]) == classNumber) {
@@ -186,5 +165,9 @@ public class SchoolSearch {
         if (!found) {
             System.out.println("Учні у класі " + classNumber + " не знайдені.");
         }
+
+        LocalTime endTime = LocalTime.now(); // Кінець пошуку
+        Duration duration = Duration.between(startTime, endTime); // Обчислення тривалості
+        System.out.println("Час виконання пошуку: " + duration.toMillis() + " мілісекунд");
     }
 }
